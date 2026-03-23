@@ -62,9 +62,10 @@ class DeviceWifi:
     @classmethod
     def parse(cls, text: str) -> DeviceWifi:
         t = text.replace("\\:", "\uFFFE").replace(
-            ":", "\uFFFF").replace("\uFFFE", ":")
-        m = re.search(
-            r'^(\*|\s)\uFFFF(.*)\uFFFF(.*)\uFFFF(.*)\uFFFF(\d+)\uFFFF(\d+)\sMHz\uFFFF(\d+)\s(?:Mb|Mbit)\/s\uFFFF(\d+)\uFFFF(.*)$', t)
+            ":", "\uFFFF").replace("\uFFFE", ":").replace("МГц", "MHz").replace("Мбит/с", "Mbit")
+        pattern = r'^(\*|\s)\uFFFF(.*?)\uFFFF(.*?)\uFFFF(.*?)\uFFFF(\d+)\uFFFF(\d+)\s(?:MHz)\uFFFF(\d+)\s(?:Mb|Mbit)\uFFFF(\d+)\uFFFF(.*)$'
+        m = re.search(pattern, t)
+
         if m:
             in_use, ssid, bssid, mode, chan, freq, rate, signal, security = m.groups()
             return DeviceWifi(in_use == '*', ssid, bssid, mode,
