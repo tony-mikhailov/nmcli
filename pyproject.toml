@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nmcli"
 version = "1.7.0"
-description = "A python wrapper library for the network-manager cli client"
+description = "A python wrapper library for the network-manager cli client Tony Mikhailov's  fork"
 readme = "README.md"
-authors = [{name = "ushiboy"}]
+authors = [{name = "ushiboy"}, {name = "tony-mikhailov"}]
 license = "MIT"
-license-files = ["LICENSE.txt"]
+license-files = ["LICENSE.txt"]k
 requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ushiboy/nmcli"
+Homepage = "https://github.com/tony-mikhailov/nmcli"
 
 [tool.setuptools.packages.find]
 include = ["nmcli*"]
