@@ -63,7 +63,9 @@ class DeviceWifi:
     def parse(cls, text: str) -> DeviceWifi:
         t = text.replace("\\:", "\uFFFE").replace(
             ":", "\uFFFF").replace("\uFFFE", ":").replace("МГц", "MHz").replace("Мбит/с", "Mbit")
-        pattern = r'^(\*|\s)\uFFFF(.*?)\uFFFF(.*?)\uFFFF(.*?)\uFFFF(\d+)\uFFFF(\d+)\s(?:MHz)\uFFFF(\d+)\s(?:Mb|Mbit)\uFFFF(\d+)\uFFFF(.*)$'
+        # The Russian replacement above consumes the whole "\u041C\u0431\u0438\u0442/\u0441", but English
+        # nmcli prints "130 Mbit/s", so the "/s" suffix has to be optional here.
+        pattern = r'^(\*|\s)\uFFFF(.*?)\uFFFF(.*?)\uFFFF(.*?)\uFFFF(\d+)\uFFFF(\d+)\s(?:MHz)\uFFFF(\d+)\s(?:Mbit|Mb)(?:/s)?\uFFFF(\d+)\uFFFF(.*)$'
         m = re.search(pattern, t)
 
         if m:

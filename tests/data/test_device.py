@@ -79,6 +79,15 @@ def test_device_wifi_parse():
     assert DeviceWifi.parse(d5) == \
         DeviceWifi(True, 'AP1', '00:00:00:00:00:00',
                    'Infra', 1, 2400, 130, 82, 'WPA1 WPA2')
+    # Russian locale: nmcli prints localised units.
+    d6 = '*:AP1:00\\:00\\:00\\:00\\:00\\:00:Infra:1:2400 МГц:130 Мбит/с:82:WPA1 WPA2'
+    assert DeviceWifi.parse(d6) == \
+        DeviceWifi(True, 'AP1', '00:00:00:00:00:00',
+                   'Infra', 1, 2400, 130, 82, 'WPA1 WPA2')
+    d7 = ' ::00\\:00\\:00\\:00\\:00\\:04:Infra:36:5180 МГц:1170 Мбит/с:69:WPA2 WPA3'
+    assert DeviceWifi.parse(d7) == \
+        DeviceWifi(False, '', '00:00:00:00:00:04',
+                   'Infra', 36, 5180, 1170, 69, 'WPA2 WPA3')
 
 
 def test_device_wifi_parse_when_failed():
